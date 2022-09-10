@@ -3,7 +3,6 @@ from typing import Dict, Type
 
 class InfoMessage:
     """Информационное сообщение о тренировке."""
-    # Почему не видит General_Message
     general_message = ("Тип тренировки: {training_type}; "
                        + "Длительность: {duration_HRS:.3f} ч.; "
                        + "Дистанция: {distance:.3f} км; "

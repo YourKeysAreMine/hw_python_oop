@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Dict, Type
 
 
@@ -17,7 +17,7 @@ class InfoMessage:
                             "Потрачено ккал: {calories:.3f}.")
 
     def get_message(self) -> str:
-        return self.GENERAL_MESSAGE.format(**self.__dict__)
+        return self.GENERAL_MESSAGE.format(**asdict(self))
 
 
 class Training:
@@ -118,14 +118,14 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    class_dict: Dict[str, Type[Training]] = {
+    CLASS_DICT: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
     }
-    if workout_type not in class_dict.keys():
+    if workout_type not in CLASS_DICT.keys():
         raise KeyError('You have KeyError, check packages!')
-    return class_dict[workout_type](*data)
+    return CLASS_DICT[workout_type](*data)
 
 
 def main(training: Training) -> None:
